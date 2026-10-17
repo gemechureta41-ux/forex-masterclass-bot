@@ -20,7 +20,7 @@ logging.basicConfig(
 # Conversation states
 NAME, PHONE, PAYMENT_METHOD, TRANSACTION_ID, SCREENSHOT = range(5)
 
-# Token fi Admin ID kallattiidhaan asitti galchameera
+# Token fi Admin ID
 TOKEN = "8961524303:AAHhrvbJQsegAdqtGy6AeuPZZb4Z-QM8aUQ"
 ADMIN_CHAT_ID = "5558713786"
 VIP_CHANNEL_LINK = "https://t.me/+p8VcsdP-k2FmMjk0"
@@ -31,7 +31,7 @@ TELEBIRR_NO = "0917091612"
 MPESA_NO = "0717120607"
 ACCOUNT_NAME = "Gemechu Reta"
 
-# Temporary Database (In-memory storage)
+# Temporary Database
 user_data_db = {}
 
 # STEP 1: /start command
