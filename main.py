@@ -1,5 +1,6 @@
 import os
 import logging
+import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
@@ -195,7 +196,7 @@ async def admin_decision(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=user_id, text=reject_msg)
         await query.edit_message_caption(caption=query.message.caption + "\n\n❌ **STATUS: REJECTED**")
 
-def main():
+async def main():
     if not TOKEN:
         raise ValueError("BOT_TOKEN environment variable is missing!")
         
@@ -218,7 +219,15 @@ def main():
     app.add_handler(CallbackQueryHandler(admin_decision, pattern="^(approve|reject)_"))
     
     print("Bot is running...")
-    app.run_polling()
+    
+    # Event loop fix for Python 3.14
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    
+    # Keep the bot running
+    stop_signal = asyncio.Event()
+    await stop_signal.wait()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
